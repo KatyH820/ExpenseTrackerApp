@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 import ExpenseForm from "../components/ManageExpense/ExpenseForm";
+import { deleteExpense } from "../util/http";
 export default function ManageExpense() {
   const route = useRoute();
   const navigation = useNavigation();
@@ -21,8 +22,7 @@ export default function ManageExpense() {
   const expenses = useSelector((state) => state.expense.expenses);
   let selectedExpense = expenses.find((expense) => expense.id === expenseId);
 
-  function deleteHandler() {
-    dispatch(expenseAction.deleteExpense(expenseId));
+  function navBack() {
     if (from) {
       navigation.navigate(from === "Recent" ? "RecentExpenses" : "AllExpenses");
     } else {
@@ -30,12 +30,10 @@ export default function ManageExpense() {
     }
   }
 
-  function navBack() {
-    if (from) {
-      navigation.navigate(from === "Recent" ? "RecentExpenses" : "AllExpenses");
-    } else {
-      navigation.goBack();
-    }
+  async function deleteHandler() {
+    dispatch(expenseAction.deleteExpense(expenseId));
+    await deleteExpense(expenseId);
+    navBack();
   }
 
   return (

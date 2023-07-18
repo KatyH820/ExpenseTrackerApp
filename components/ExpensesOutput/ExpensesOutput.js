@@ -8,8 +8,11 @@ export default function ExpensesOutput({ expenses, expensesPeriod, at }) {
     return expense.amount + sum;
   }, 0);
 
-  expensesData = expenses.filter((exp) => exp.date);
+  const expensesData = expenses.filter((exp) => exp.date);
 
+  const data = expensesData.sort((a, b) =>
+    new Date(b.date) > new Date(a.date) ? 1 : -1
+  );
   function renderExpenseItem(itemData) {
     return (
       <OutputCard
@@ -31,7 +34,7 @@ export default function ExpensesOutput({ expenses, expensesPeriod, at }) {
       </Text>
 
       <FlatList
-        data={expensesData}
+        data={data}
         renderItem={renderExpenseItem}
         keyExtractor={(item) => item.id}
       />

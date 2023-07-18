@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import moment from "moment";
 const expenseSlice = createSlice({
   name: "expenses",
   initialState: {
@@ -29,6 +28,10 @@ const expenseSlice = createSlice({
           month: action.payload.week,
         };
       }
+    },
+    setExpenses(state, action) {
+      // const inverted = action.payload.reverse();
+      state.expenses = action.payload;
     },
   },
 });

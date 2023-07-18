@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { expenseAction } from "../../store/expenses";
 import { generateId } from "../../util/date";
 import moment from "moment";
+import { storeExpense, updateExpense } from "../../util/http";
 export default function ExpenseForm({ navBack, initial }) {
   const route = useRoute();
   const expenseId = route.params?.expenseId;
@@ -33,7 +34,7 @@ export default function ExpenseForm({ navBack, initial }) {
     }));
   }
 
-  function submitHandler() {
+  async function submitHandler() {
     const expenseData = {
       amount: +inputValues.amount.value,
       description: inputValues.description.value,
@@ -62,13 +63,13 @@ export default function ExpenseForm({ navBack, initial }) {
 
     if (amountIsValid && dateIsValid && descriptionIsValid) {
       if (!isEditing) {
+        const id = await storeExpense(expenseData);
         dispatch(
           expenseAction.addExpense({
-            id: generateId(),
             ...expenseData,
+            id: id,
           })
         );
-        console.log(expenseData);
       } else {
         dispatch(
           expenseAction.updateExpense({
@@ -76,12 +77,12 @@ export default function ExpenseForm({ navBack, initial }) {
             ...expenseData,
           })
         );
+        await updateExpense(expenseId, expenseData);
       }
     }
     navBack();
   }
 
-  //   console.log(inputValues);
   const formIsInvalid =
     !inputValues.amount.isValid ||
     !inputValues.date.isValid ||

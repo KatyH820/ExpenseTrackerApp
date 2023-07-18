@@ -8,16 +8,12 @@ export default function AllExpenses() {
   const expenseData = useSelector((state) => state.expense.expenses);
   const Alldata = JSON.parse(JSON.stringify(expenseData));
 
-  const data = Alldata.sort((a, b) =>
-    new Date(b.date) > new Date(a.date) ? 1 : -1
-  );
-
   return (
     <ScreenWrap>
       <Text style={styles.Title}>Expenses Trend For This Year</Text>
-      <AllBarChart data={data} />
+      <AllBarChart data={Alldata} />
       <View style={styles.list}>
-        <ExpensesOutput expenses={data} expensesPeriod="in total" at="All" />
+        <ExpensesOutput expenses={Alldata} expensesPeriod="in total" at="All" />
       </View>
     </ScreenWrap>
   );

@@ -14,7 +14,6 @@ export default function AllBarChart({ data }) {
     { value: 0, dataPointText: "0", label: "Nov-Dec" },
   ];
 
-  console.log(data);
   for (let i = 0; i < data.length; i++) {
     const index = monthIndex[monthLabel[moment(data[i].date).month()]];
     monthData[index].value += data[i].amount;
