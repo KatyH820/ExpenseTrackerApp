@@ -33,11 +33,9 @@ export default function AllBarChart({ data }) {
         data={monthData}
         isAnimated
         animationDuration={1500}
-        // barWidth={25}
         roundedTop
         frontColor={GlobalStyles.colors.secondary}
         activeOpacity={0.2}
-        // spacing={20}
         xAxisType={"solid"}
         xAxisColor={"lightgray"}
         yAxisTextStyle={{ color: "lightgray" }}

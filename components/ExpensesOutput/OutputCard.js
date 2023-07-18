@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Pressable, Animated } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
 
 import { useNavigation } from "@react-navigation/native";

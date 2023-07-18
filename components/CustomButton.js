@@ -1,5 +1,4 @@
 import { Pressable, StyleSheet, View } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
 import { GlobalStyles } from "../constants/styles";
 export default function CustomButton({ children, onPress, style, type }) {
   return (

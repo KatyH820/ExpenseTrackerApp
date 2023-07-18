@@ -3,15 +3,13 @@ import { GlobalStyles } from "../../constants/styles";
 import Input from "./Input";
 import { useState } from "react";
 import CustomButton from "../CustomButton";
-import { useRoute, useNavigation } from "@react-navigation/native";
-import { useDispatch, useSelector } from "react-redux";
+import { useRoute } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
 import { expenseAction } from "../../store/expenses";
 import { generateId } from "../../util/date";
 import moment from "moment";
 export default function ExpenseForm({ navBack, initial }) {
   const route = useRoute();
-  const navigation = useNavigation();
-  const from = route.params.from;
   const expenseId = route.params?.expenseId;
   const isEditing = !!expenseId;
   const dispatch = useDispatch();

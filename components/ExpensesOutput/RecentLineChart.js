@@ -1,6 +1,5 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
-import { GlobalStyles } from "../../constants/styles";
 import { LineChart } from "react-native-gifted-charts";
 import { weekLabel } from "../../util/date";
 import moment from "moment";

@@ -39,7 +39,5 @@ const styles = StyleSheet.create({
   },
   invalidInput: {
     backgroundColor: "#fcb9b2",
-    // borderColor: GlobalStyles.colors.error,
-    // borderWidth: 2,
   },
 });
