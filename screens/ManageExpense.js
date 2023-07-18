@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import ScreenWrap from "../components/ScreenWrap";
 import { GlobalStyles } from "../constants/styles";
 import CustomButton from "../components/CustomButton";
@@ -6,11 +6,9 @@ import { useNavigation } from "@react-navigation/native";
 import { useRoute } from "@react-navigation/native";
 
 import { expenseAction } from "../store/expenses";
-import { generateId } from "../util/date";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesome5 } from "@expo/vector-icons";
 
-import moment from "moment";
 import ExpenseForm from "../components/ManageExpense/ExpenseForm";
 export default function ManageExpense() {
   const route = useRoute();
@@ -85,8 +83,6 @@ const styles = StyleSheet.create({
     width: "80%",
     justifyContent: "center",
     alignItems: "center",
-    // borderTopColor: GlobalStyles.colors.contrast,
-    // borderTopWidth: 1,
     marginTop: "5%",
     paddingTop: "5%",
   },

@@ -2,13 +2,10 @@ import { StyleSheet, Text, View } from "react-native";
 import { GlobalStyles } from "../constants/styles";
 import ScreenWrap from "../components/ScreenWrap";
 import AllBarChart from "../components/ExpensesOutput/AllBarChart";
-import { DUMMY_EXPENSES } from "../dummy-expenses";
 import ExpensesOutput from "../components/ExpensesOutput/ExpensesOutput";
 import { useSelector } from "react-redux";
 export default function AllExpenses() {
   const expenseData = useSelector((state) => state.expense.expenses);
-  console.log("HAHA");
-  console.log(expenseData);
   const Alldata = JSON.parse(JSON.stringify(expenseData));
 
   const data = Alldata.sort((a, b) =>

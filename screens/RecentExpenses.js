@@ -1,15 +1,11 @@
 import { StyleSheet, Text, View } from "react-native";
 import ScreenWrap from "../components/ScreenWrap";
 import { GlobalStyles } from "../constants/styles";
-import { LineChart } from "react-native-gifted-charts";
 import RecentLineChart from "../components/ExpensesOutput/RecentLineChart";
 import ExpensesOutput from "../components/ExpensesOutput/ExpensesOutput";
-import CustomButton from "../components/CustomButton";
 import { useSelector } from "react-redux";
-import expenseSlice, { expenseAction } from "../store/expenses";
 import { generateId } from "../util/date";
 import moment from "moment";
-// import { DUMMY_EXPENSES } from "../dummy-expenses";
 export default function RecentExpenses() {
   const expenseData = useSelector((state) => state.expense.expenses);
 
