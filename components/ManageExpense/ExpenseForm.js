@@ -9,7 +9,9 @@ import { expenseAction } from "../../store/expenses";
 import { generateId } from "../../util/date";
 import moment from "moment";
 import { storeExpense, updateExpense } from "../../util/http";
+import LoadingOverlay from "../UI/LoadingOverlay";
 export default function ExpenseForm({ navBack, initial }) {
+  const [load, setLoad] = useState(false);
   const route = useRoute();
   const expenseId = route.params?.expenseId;
   const isEditing = !!expenseId;
@@ -63,6 +65,7 @@ export default function ExpenseForm({ navBack, initial }) {
 
     if (amountIsValid && dateIsValid && descriptionIsValid) {
       if (!isEditing) {
+        setLoad(true);
         const id = await storeExpense(expenseData);
         dispatch(
           expenseAction.addExpense({
@@ -70,6 +73,7 @@ export default function ExpenseForm({ navBack, initial }) {
             id: id,
           })
         );
+        setLoad(false);
       } else {
         dispatch(
           expenseAction.updateExpense({
@@ -81,6 +85,9 @@ export default function ExpenseForm({ navBack, initial }) {
       }
     }
     navBack();
+  }
+  if (load) {
+    return <LoadingOverlay />;
   }
 
   const formIsInvalid =

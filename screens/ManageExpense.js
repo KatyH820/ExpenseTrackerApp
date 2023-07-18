@@ -11,7 +11,12 @@ import { FontAwesome5 } from "@expo/vector-icons";
 
 import ExpenseForm from "../components/ManageExpense/ExpenseForm";
 import { deleteExpense } from "../util/http";
+import { useState } from "react";
+import LoadingOverlay from "../components/UI/LoadingOverlay";
+import ErrorOverlay from "../components/UI/ErrorOverlay";
 export default function ManageExpense() {
+  const [load, setLoad] = useState(false);
+  const [error, setError] = useState();
   const route = useRoute();
   const navigation = useNavigation();
   const from = route.params.from;
@@ -30,12 +35,28 @@ export default function ManageExpense() {
     }
   }
 
+  function errorHandler() {
+    setError(null);
+  }
   async function deleteHandler() {
-    dispatch(expenseAction.deleteExpense(expenseId));
-    await deleteExpense(expenseId);
-    navBack();
+    setLoad(true);
+    try {
+      await deleteExpense(expenseId);
+      dispatch(expenseAction.deleteExpense(expenseId));
+      navBack();
+    } catch (error) {
+      setError("Could not delete expense - please try again later!");
+      setLoad(false);
+    }
   }
 
+  if (load) {
+    return <LoadingOverlay />;
+  }
+
+  if (error && !load) {
+    return <ErrorOverlay message={error} onConfirm={errorHandler} />;
+  }
   return (
     <ScreenWrap>
       <View style={styles.screen}>

@@ -5,20 +5,38 @@ import RecentLineChart from "../components/ExpensesOutput/RecentLineChart";
 import ExpensesOutput from "../components/ExpensesOutput/ExpensesOutput";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchExpenses } from "../util/http";
 import { expenseAction } from "../store/expenses";
+import LoadingOverlay from "../components/UI/LoadingOverlay";
+import ErrorOverlay from "../components/UI/ErrorOverlay";
 export default function RecentExpenses() {
+  const [load, setLoad] = useState(true);
+  const [error, setError] = useState();
   const expenseData = useSelector((state) => state.expense.expenses);
   const dispatch = useDispatch();
   useEffect(() => {
     async function getExpenses() {
-      const expenses = await fetchExpenses();
-      dispatch(expenseAction.setExpenses(expenses));
+      try {
+        const expenses = await fetchExpenses();
+        dispatch(expenseAction.setExpenses(expenses));
+      } catch (error) {
+        setError("Could not fetch expenses!");
+      }
+      setLoad(false);
     }
     getExpenses();
   }, []);
 
+  function errorHandler() {
+    setError(null);
+  }
+  if (error && !load) {
+    return <ErrorOverlay message={error} onConfirm={errorHandler} />;
+  }
+  if (load) {
+    return <LoadingOverlay />;
+  }
   const expensesLastWeek = expenseData.filter((expense) => {
     const today = moment();
     const pastDate = moment().subtract(7, "days");
