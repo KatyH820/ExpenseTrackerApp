@@ -1,4 +1,10 @@
-import { StyleSheet, View, Text, Alert } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Alert,
+  KeyboardAvoidingView,
+} from "react-native";
 import { GlobalStyles } from "../../constants/styles";
 import Input from "./Input";
 import { useState } from "react";
@@ -96,7 +102,7 @@ export default function ExpenseForm({ navBack, initial }) {
     !inputValues.description.isValid;
 
   return (
-    <View style={styles.form}>
+    <KeyboardAvoidingView style={styles.form} behavior="padding">
       <View style={styles.row}>
         <Input
           label="Amount"
@@ -144,7 +150,8 @@ export default function ExpenseForm({ navBack, initial }) {
           <Text style={styles.text}>Submit</Text>
         </CustomButton>
       </View>
-    </View>
+      <View style={{ height: "15%" }}></View>
+    </KeyboardAvoidingView>
   );
 }
 
